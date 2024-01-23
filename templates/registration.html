@@ -6,7 +6,7 @@
     <title>Document</title>
     <style>
         body{
-            background-color: aqua;
+            background-color: rgb(60, 0, 255);
         }
     </style>
 </head>
@@ -15,8 +15,8 @@
         <h1>user registration</h1>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ufo.as_p}}
-            {{pfo.as_p}}
+                {{ufo.as_p}}
+                {{pfo.as_p}}
             <input type="submit" value="register">
         </form>
     </center>
