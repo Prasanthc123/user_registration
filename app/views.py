@@ -2,12 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core.mail import send_mail
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 from app.forms import *
-
 def registration(request):
     ufo=UserForm()
     pfo=ProfileForm()
@@ -57,3 +56,15 @@ def home(request):
         d={'username':username}
         return render(request,'home.html',d)
     return render(request,'home.html')
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
+@login_required
+def display_profile(request):
+    un=request.session.get('username')
+    uo=User.objects.get(username=un)
+    po=Profile.objects.get(username=uo)
+    d={'uo':uo,'po':po}
+    return render(request,'display_profile.html',d)
